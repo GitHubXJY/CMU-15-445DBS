@@ -181,7 +181,7 @@ DBMS启动时会从OS申请一片内存区域，即`Buffer Pool`，并将这块�
 
 * 如果该页面不在缓冲池中，或者在缓冲池中但其引用计数(`pin_count_`)已经为0，则返回false。
 * 如果该页面在缓冲池中且引用计数不为0，递减一次引用计数(`pin_count_--`)，如果递减后为0，将该帧设置为可驱逐的。返回true。
-* 参数`is_dirty`指示页面在固定时是否被修改，且结合`dirty_`成员的值决定是否将页面内容写回磁盘，并更新`dirty_`的值。
+* 参数`is_dirty`指示页面在固定时是否被修改，true则更新`is_dirty_`的值为true，false则维持`is_dirty_`的值不变。
 
 4. `auto FlushPgImp(page_id_t page_id) -> bool`：将页面ID为`page_id`的页面刷新到磁盘，不管页面是否为脏页和是否正在被引用。
 
